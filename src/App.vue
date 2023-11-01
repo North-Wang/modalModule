@@ -1,7 +1,9 @@
 <script setup>
-import { Teleport } from "vue";
+import { ref, Teleport } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import Modal from "./components/Modal.vue";
+
+const showModal = ref(false);
 </script>
 
 <template>
@@ -13,10 +15,10 @@ import Modal from "./components/Modal.vue";
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
-  <button>打開彈窗</button>
+  <button @click="showModal = true">打開彈窗</button>
   <HelloWorld msg="Vite + Vue" />
-  <Teleport to="body">
-    <Modal></Modal>
+  <Teleport to="body" v-if="showModal">
+    <Modal @closeModal="showModal = false"></Modal>
   </Teleport>
 </template>
 
