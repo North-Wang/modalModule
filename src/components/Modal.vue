@@ -5,6 +5,9 @@
         class="modal-content rounded-lg overflow-hidden"
         ref="target"
         :style="{ width: width, height: height, minHeight: minHeight }"
+        role="dialog"
+        aria-labelledby="modalTitle"
+        aria-describedby="modalDescription"
       >
         <li class="header" v-show="hasHeader">
           <slot name="headerTitle">&nbsp;</slot>
@@ -19,18 +22,20 @@
         <li class="body p-4">
           <slot name="modalContent"></slot>
         </li>
-        <!-- modal footer -->
-
+        <!-- 按鈕 -->
         <li
           class="footer flex justify-end px-4 pb-4 gap-[24px]"
           v-show="hasFooter"
         >
-          <slot name="footer"></slot>
-          <button class="basic-button-light" @click="closeModal">
-            <slot name="cancel ">取消</slot>
+          <button
+            class="basic-button-light"
+            @click="closeModal"
+            v-show="showLightButton"
+          >
+            <slot name="button-light">取消</slot>
           </button>
           <button class="basic-button" @click="closeModal">
-            <slot name="closeModal ">確認</slot>
+            <slot name="close-button">確認</slot>
           </button>
         </li>
       </ul>
@@ -69,6 +74,11 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  showLightButton: {
+    //是否顯示淺色按鈕
+    type: Boolean,
+    default: false,
+  },
 });
 const width = computed(() => {
   return props.width;
@@ -84,6 +94,9 @@ const hasHeader = computed(() => {
 });
 const hasFooter = computed(() => {
   return props.hasFooter;
+});
+const showLightButton = computed(() => {
+  return props.showLightButton;
 });
 const emits = defineEmits(["closeModal"]);
 

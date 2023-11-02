@@ -34,3 +34,14 @@
 .basic-button-light:hover {
   background: #d5e4e5;
 }
+
+/* 過度用動畫 */
+.modal-fade-enter,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
