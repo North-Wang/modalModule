@@ -9,6 +9,7 @@
 
       <button @click="showTwoButton = true">自訂bodyBottom</button>
       <button @click="showNoButton = true">沒有任何按鈕</button>
+      <button @click="showHasFooter = true">有footer</button>
     </li>
     <hr />
     <h3 class="text-start">範例</h3>
@@ -76,6 +77,67 @@
       </template>
     </Modal>
   </Teleport>
+  <Teleport to="body" v-if="showHasFooter">
+    <Modal
+      :hasBodyButtonList="false"
+      :hasHeader="true"
+      :hasFooter="true"
+      :setHeaderStyle="{
+        justifyContent: 'center',
+        height: '40px',
+        backGround: 'yellow',
+      }"
+      :setModalStyle="{
+        width: '500px',
+      }"
+      @closeModal="showHasFooter = false"
+    >
+      <template #headerTitle>
+        <div>委託確認</div>
+      </template>
+      <template #modalContent>
+        <div class="flex flex-col gap-y-3 py-2 px-2">
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="寄件人名稱"
+            class="border rounded-lg h-10 px-2"
+          />
+          <input
+            type="email"
+            name=""
+            id=""
+            v-model="email"
+            placeholder="寄件人信箱"
+            class="border rounded-lg h-10 px-2"
+          />
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="寄件人地址"
+            class="border rounded-lg h-10 px-2"
+          />
+        </div>
+      </template>
+      <template #footer>
+        <hr />
+        <ul class="p-4 text-center">
+          <li class="flex justify-between gap-x-4">
+            <button
+              class="basic-button-light"
+              @click.self="showHasFooter = false"
+            >
+              取消
+            </button>
+            <button class="bg-red-400 text-white">確認送出</button>
+          </li>
+          <!-- <button class="bg-yellow-400 font-bold">儲存</button> -->
+        </ul>
+      </template>
+    </Modal>
+  </Teleport>
   <Teleport to="body" v-if="showThreeColumnModal">
     <Modal
       :setModalStyle="{ width: '80%' }"
@@ -101,12 +163,18 @@ const showModal = ref(false);
 const showBasicModal = ref(false);
 const showTwoButton = ref(false);
 const showNoButton = ref(false);
+const showHasFooter = ref(false);
 const showThreeColumnModal = ref(false);
+
+const email = ref("");
 
 const testSignEvent = () => {
   alert("進行測試");
   showTwoButton.value = false;
 };
+
+/* 三欄的內容 */
+
 onMounted(() => {});
 </script>
 

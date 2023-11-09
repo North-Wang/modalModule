@@ -10,7 +10,7 @@
         aria-describedby="modalDescription"
         v-show="showModal"
       >
-        <li class="header" v-show="hasHeader">
+        <li class="header relative" :style="setHeaderStyle" v-show="hasHeader">
           <div class="flex items-center">
             <img
               :src="goBackIcon"
@@ -27,7 +27,7 @@
           <img
             :src="Xmark"
             alt="close-modal"
-            class="w-2.5 h-2.5 cursor-pointer"
+            class="w-2.5 h-2.5 cursor-pointer absolute right-3"
             @click.self="closeModal"
             v-show="hasXMark"
           />
@@ -106,6 +106,10 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  setHeaderStyle: {
+    type: Object,
+    default: () => ({}),
+  },
   //彈窗內容的style
   setBodyStyle: {
     type: Object,
@@ -173,7 +177,6 @@ onMounted(() => {
   height: 30px;
   background: var(--unnamed, linear-gradient(90deg, #b5dbe0 0%, #70aeb5 100%));
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 9px 15px;
 }
