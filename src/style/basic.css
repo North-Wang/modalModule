@@ -11,6 +11,7 @@
   color: #ffffff;
   white-space: nowrap;
   word-wrap: nowrap;
+  align-items: center;
 }
 .basic-button:hover {
   background: linear-gradient(90deg, #94c8ce 0%, #4c8e95 100%);

@@ -11,16 +11,16 @@
         v-show="showModal"
       >
         <li class="header" v-show="hasHeader">
-          <div class="flex">
+          <div class="flex items-center">
             <img
               :src="goBackIcon"
               alt="go-back-icon"
-              class="w-2.5 h-2.5 cursor-pointer"
+              class="w-2.5 h-2.5 cursor-pointer mr-2"
               @click.self="closeModal"
               v-show="hasBackIcon"
             />
             <div class="text-white" :style="setHeaderTitleStyle">
-              <slot name="headerTitle "></slot>
+              <slot name="headerTitle"></slot>
             </div>
           </div>
 
@@ -39,9 +39,9 @@
           <slot name="body-bottom">
             <div :style="setBodyBottom" v-if="hasBodyButtonList">
               <button
-                class="button-basic"
+                class="basic-button"
                 :style="setButtonStyle"
-                @click="clickButton"
+                @click.self="clickButton"
               >
                 確認
               </button>
@@ -81,15 +81,16 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  hasFooter: {
-    type: Boolean,
-    default: false,
-  },
   hasBodyButtonList: {
     //是否顯示body下方的按鈕列
     type: Boolean,
     default: true,
   },
+  hasFooter: {
+    type: Boolean,
+    default: false,
+  },
+
   /* ----- 與元件顯示相關 end ----- */
 
   /* ----- 修改style start ----- */
@@ -98,7 +99,6 @@ const props = defineProps({
     type: Object,
     default: () => ({
       width: "50%",
-      minHeight: "100px",
     }),
   },
   //標頭的標題
@@ -106,6 +106,7 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  //彈窗內容的style
   setBodyStyle: {
     type: Object,
     default: () => ({
@@ -113,6 +114,10 @@ const props = defineProps({
     }),
   },
   setButtonStyle: {
+    type: Object,
+    default: () => ({}),
+  },
+  setBodyBottom: {
     type: Object,
     default: () => ({
       justifyContent: "end",
@@ -137,7 +142,7 @@ const closeModal = () => {
   }, 400);
 };
 const clickButton = () => {
-  closeModal;
+  closeModal();
 };
 
 onMounted(() => {
