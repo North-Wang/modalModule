@@ -3,7 +3,9 @@ name: gitlab-ci #顯示在側邊欄的名稱
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: - master #監聽的項目 ex:[push]的event or 別人發的pr
+    branches: [push] #監聽的項目 ex:[push]的event or 別人發的pr
+  # pull_request:
+  #   branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,6 +31,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3 #在指定的平台上執行actions/checkout@v3 action
+
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
