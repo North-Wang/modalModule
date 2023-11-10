@@ -1,3 +1,4 @@
+# 用來忽略不需要加入git索引的檔案
 # Logs
 logs
 *.log
