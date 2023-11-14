@@ -3,7 +3,7 @@ name: gitlab-ci #顯示在側邊欄的名稱
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [push] #監聽的項目 ex:[push]的event or 別人發的pr
+    branches: - master #監聽的項目 ex:[push]的event or 別人發的pr
   # pull_request:
   #   branches: [main]
 
@@ -51,3 +51,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+
+  build:
+  runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: npm install
+      - run: npm run build
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github-token: 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
+          publish-dir: ./build

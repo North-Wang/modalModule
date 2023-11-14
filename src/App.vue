@@ -162,13 +162,21 @@
     >
       <template #modalContent>
         <ul class="flex justify-center mb-4">
-          產品受重調查表
+          產品受眾調查表
         </ul>
         <ul class="grid grid-cols-2 h-[100px]" style="gap: 16px">
-          <button class="bg-blue-200" @click.self="showMaleData = true">
+          <button
+            class="bg-blue-200 text-[40px] p-4"
+            @click.self="showMaleData = true"
+          >
             男
           </button>
-          <button class="bg-red-200">女</button>
+          <button
+            class="bg-red-200 text-[40px] p-4"
+            @click.self="showFemaleData = true"
+          >
+            女
+          </button>
         </ul>
       </template>
     </Modal>
@@ -176,12 +184,27 @@
   <Teleport to="body" v-if="showMaleData">
     <Modal
       :setModalStyle="{ width: '30%' }"
+      :hasHeader="false"
       :hasBodyButtonList="false"
       @closeModal="showMaleData = false"
     >
       <template #modalContent>
-        <ul class="flex justify-center mb-4">
+        <ul class="flex justify-center">
           男性資料
+        </ul>
+      </template>
+    </Modal>
+  </Teleport>
+  <Teleport to="body" v-if="showFemaleData">
+    <Modal
+      :setModalStyle="{ width: '30%' }"
+      :hasHeader="false"
+      :hasBodyButtonList="false"
+      @closeModal="showFemaleData = false"
+    >
+      <template #modalContent>
+        <ul class="flex justify-center">
+          女性資料
         </ul>
       </template>
     </Modal>
@@ -201,6 +224,7 @@ const showHasFooter = ref(false);
 const showThreeColumnModal = ref(false);
 const showTwoLayerModal = ref(false);
 const showMaleData = ref(false);
+const showFemaleData = ref(false);
 
 const email = ref("");
 
