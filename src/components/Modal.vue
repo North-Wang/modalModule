@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-bg">
+  <div class="modal-bg" @click.self="clickBackGround">
     <transition name="slide-fade">
       <ul
         class="modal-content rounded-lg overflow-hidden"
@@ -60,12 +60,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed, defineEmits, defineProps } from "vue";
+import {
+  ref,
+  reactive,
+  onMounted,
+  watch,
+  computed,
+  defineEmits,
+  defineProps,
+} from "vue";
 import { onClickOutside } from "@vueuse/core";
 import Xmark from "../assets/closeModal.svg";
 import goBackIcon from "../assets/goBackIcon.svg";
 
 const props = defineProps({
+  // modalId: {
+  //   //如果彈窗裡還有彈窗，則可以用此辨別現在要關閉哪一個彈窗
+  //   type: String,
+  //   default: "target",
+  // },
+
   /* ----- 與元件顯示相關 start ----- */
   hasHeader: {
     type: Boolean,
@@ -134,10 +148,22 @@ const props = defineProps({
 const emits = defineEmits(["closeModal"]);
 
 const target = ref(null);
-onClickOutside(target, (e) => {
-  closeModal();
-});
+const maleModal = ref(null);
+// onClickOutside(target, (e) => {
+//   closeModal();
+// });
+
+// onClickOutside(maleModal, (e) => {
+//   e.stopPropagation();
+//   closeModal();
+// });
 const showModal = ref(false);
+const state = reactive({
+  refMap: {
+    target,
+  },
+});
+
 const closeModal = () => {
   //關閉彈窗
   showModal.value = false;
@@ -146,6 +172,10 @@ const closeModal = () => {
   }, 400);
 };
 const clickButton = () => {
+  closeModal();
+};
+
+const clickBackGround = () => {
   closeModal();
 };
 

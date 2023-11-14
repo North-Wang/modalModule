@@ -15,6 +15,7 @@
     <h3 class="text-start">範例</h3>
     <li class="flex gap-x-1">
       <button @click="showThreeColumnModal = true">三欄的彈窗</button>
+      <button @click="showTwoLayerModal = true">彈窗內還有彈窗</button>
     </li>
     <hr />
     <h3 class="text-start">測試</h3>
@@ -154,6 +155,37 @@
       </template>
     </Modal>
   </Teleport>
+  <Teleport to="body" v-if="showTwoLayerModal">
+    <Modal
+      :setModalStyle="{ width: '50%' }"
+      @closeModal="showTwoLayerModal = false"
+    >
+      <template #modalContent>
+        <ul class="flex justify-center mb-4">
+          產品受重調查表
+        </ul>
+        <ul class="grid grid-cols-2 h-[100px]" style="gap: 16px">
+          <button class="bg-blue-200" @click.self="showMaleData = true">
+            男
+          </button>
+          <button class="bg-red-200">女</button>
+        </ul>
+      </template>
+    </Modal>
+  </Teleport>
+  <Teleport to="body" v-if="showMaleData">
+    <Modal
+      :setModalStyle="{ width: '30%' }"
+      :hasBodyButtonList="false"
+      @closeModal="showMaleData = false"
+    >
+      <template #modalContent>
+        <ul class="flex justify-center mb-4">
+          男性資料
+        </ul>
+      </template>
+    </Modal>
+  </Teleport>
 </template>
 
 <script setup>
@@ -167,6 +199,8 @@ const showTwoButton = ref(false);
 const showNoButton = ref(false);
 const showHasFooter = ref(false);
 const showThreeColumnModal = ref(false);
+const showTwoLayerModal = ref(false);
+const showMaleData = ref(false);
 
 const email = ref("");
 
