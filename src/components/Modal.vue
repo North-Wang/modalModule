@@ -148,7 +148,6 @@ const props = defineProps({
 const emits = defineEmits(["closeModal"]);
 
 const target = ref(null);
-const maleModal = ref(null);
 // onClickOutside(target, (e) => {
 //   closeModal();
 // });
@@ -158,11 +157,6 @@ const maleModal = ref(null);
 //   closeModal();
 // });
 const showModal = ref(false);
-const state = reactive({
-  refMap: {
-    target,
-  },
-});
 
 const closeModal = () => {
   //關閉彈窗
