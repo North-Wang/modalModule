@@ -1,67 +1,22 @@
-name: gitlab-ci #顯示在側邊欄的名稱
-
+name: master #workflow名稱
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: - master #監聽的項目 ex:[push]的event or 別人發的pr
-  # pull_request:
-  #   branches: [main]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
-# permissions:
-#   contents: read
-#   pages: write
-#   id-token: write
-
-# Allow one concurrent deployment
-# concurrency:
-#   group: "pages"
-#   cancel-in-progress: true
-
+    branches:
+      - master
 jobs:
-  # Single deploy job since we're just deploying
-  deploy: #jobs的名稱
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest #要運行在哪一個平台
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3 #在指定的平台上執行actions/checkout@v3 action
-
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "npm"
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload dist repository
-          path: "./dist"
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-
   build:
-  runs-on: ubuntu-latest
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - run: npm install
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github-token: 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
-          publish-dir: ./build
+
+      # Runs a single command using the runners shell
+      - name: install dependencies
+        run: npm install
+
+      # Runs a single command using the runners shell
+      - name: try to build the project
+        run: npm run build
